@@ -2,6 +2,7 @@ const express = require("express");
 const errorHandling = require("./middleware/error-handling");
 const connectDb = require("./config/dbConnection");
 require("dotenv").config();
+const cors = require('cors');
 
 const app = express();
 connectDb();
@@ -9,6 +10,9 @@ connectDb();
 const port = process.env.PORT || 5001;
 
 app.use(express.json());
+app.use(cors());
+
+
 app.use("/api/contacts", require("./routes/contactRouter"));
 app.use("/api/user", require("./routes/userRouter"));
 

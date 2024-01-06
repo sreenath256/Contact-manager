@@ -2,6 +2,7 @@ const asyncHandler = require("express-async-handler");
 const User = require("../models/userModel");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const validateToken = require("../middleware/validateToken");
 
 const registerUser = asyncHandler(async (req, res) => {
   console.log("This is recived from register request", req.body);
@@ -61,7 +62,7 @@ const loginUser = asyncHandler(async (req, res) => {
         },
       },
       process.env.ACCESS_SECRET_TOKEN,
-      { expiresIn: "10m" }
+      
     );
     res.json({ token });
   } else {
@@ -71,6 +72,7 @@ const loginUser = asyncHandler(async (req, res) => {
 });
 
 const currentUser = asyncHandler(async (req, res) => {
+  validateToken;
   res.json(req.user);
 });
 

@@ -40,11 +40,12 @@ const putContact = asyncHandler(async (req, res) => {
     throw new Error('Contact not found')
   }
   const updatedContact = await Contact.findByIdAndUpdate(
-    req.params.id,
-    req.body,
+   { _id: req.params.id,
+    user_id:req.user.id},
+    {$set: req.body},
     {new:true}
   )
-  
+  console.log("Contact updated");
   res.status(200).json({ data:updatedContact,message: `Updating contact of ${contact.name}` });
 });
 
